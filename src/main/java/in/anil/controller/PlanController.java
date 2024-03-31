@@ -1,6 +1,7 @@
 package in.anil.controller;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import in.anil.binding.PlansRequestDto;
+import in.anil.binding.PlansRequestDtoForPost;
 import in.anil.binding.PlansResponseDto;
 import in.anil.service.PlanService;
 
@@ -25,7 +27,7 @@ public class PlanController {
 	private PlanService planService;
 	
 	@PostMapping("/plan")
-	public ResponseEntity<String> savePlans(@RequestBody PlansRequestDto plansRequestDto) {
+	public ResponseEntity<String> savePlans(@RequestBody PlansRequestDtoForPost plansRequestDto) {
 		boolean status = planService.createPlan(plansRequestDto);
 		
 		if(status) {
@@ -44,9 +46,9 @@ public class PlanController {
 		}
 	
 	@PutMapping("/plan")
-	public ResponseEntity<String> updatePlan(@RequestBody PlansResponseDto plansResponseDto) {
+	public ResponseEntity<String> updatePlan(@RequestBody PlansRequestDto plansRequestDto) {
 		
-		boolean status = planService.updatePlan(plansResponseDto);
+		boolean status = planService.updatePlan(plansRequestDto);
 		
 		if(status) {
 			return new ResponseEntity<String>("your plan is updated", HttpStatus.CREATED);
@@ -67,5 +69,11 @@ public class PlanController {
 		}
 		
 	}
+	
+	@GetMapping("/plans")
+	public ResponseEntity<List<PlansResponseDto>> getPlans() {
+		List<PlansResponseDto> plans = planService.getPlans();
+		return new ResponseEntity<List<PlansResponseDto>>(plans, HttpStatus.OK);
+		}
 
 }

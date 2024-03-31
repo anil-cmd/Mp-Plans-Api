@@ -1,21 +1,11 @@
 package in.anil.binding;
 
 
-public class PlansRequestDto {
+public class PlansRequestDtoForPost {
 	
-	private Integer planId;
-		
 	private String planName;
 	
 	private String status;
-
-	public Integer getPlanId() {
-		return planId;
-	}
-
-	public void setPlanId(Integer planId) {
-		this.planId = planId;
-	}
 
 	public String getPlanName() {
 		return planName;
@@ -35,7 +25,7 @@ public class PlansRequestDto {
 
 	@Override
 	public String toString() {
-		return "PlansRequestDto [planId=" + planId + ", planName=" + planName + ", status=" + status + "]";
+		return "PlansRequestDto [planName=" + planName + ", status=" + status + "]";
 	}
 	
 	
